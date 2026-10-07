@@ -1,0 +1,52 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
+import { site } from '../config/site';
+import { formatDate, readingMinutes, type Post } from '../lib/posts';
+
+interface Props { lang: Lang; post: Post; twin: boolean }
+const { lang, post, twin } = Astro.props;
+const t = copyFor(lang);
+const i = t.insights;
+const { Content } = await render(post);
+const path = `${pages.insights}${post.slug}/`;
+---
+
+<Base
+  lang={lang}
+  path={path}
+  switchPath={twin ? path : pages.insights}
+  twin={twin}
+  ogType="article"
+  title={i.postTitle(post.data.title)}
+  description={post.data.description}
+>
+  <article class="article">
+    <div class="container">
+      <header class="article-head">
+        <a class="article-back" href={localePath(lang, pages.insights)}>← {i.backToList}</a>
+        <p class="post-meta">
+          <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date, lang)}</time>
+          <span aria-hidden="true"> · </span>{i.readMinutes(readingMinutes(post.body, lang))}
+          {post.data.updated && <span> · {i.updated} <time datetime={post.data.updated.toISOString().slice(0, 10)}>{formatDate(post.data.updated, lang)}</time></span>}
+        </p>
+        <h1>{post.data.title}</h1>
+        <p class="lead">{post.data.description}</p>
+      </header>
+
+      <div class="article-body">
+        <Content />
+      </div>
+
+      <aside class="card article-cta">
+        <h3>{i.ctaTitle}</h3>
+        <p>{i.ctaText}</p>
+        <div class="btn-row" style="margin-top: 16px;">
+          <a class="btn btn-primary" href={localePath(lang, pages.contact)}>{i.ctaButton}</a>
+          {site.linkedin && <a class="btn btn-ghost" href={site.linkedin} rel="noopener">{i.linkedin}</a>}
+        </div>
+      </aside>
+    </div>
+  </article>
+</Base>

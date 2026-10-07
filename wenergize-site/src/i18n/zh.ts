@@ -193,6 +193,14 @@ export const zh: Copy = {
     intro: '关于肯尼亚及东非能源市场的观察，写给制造商、进口商和零售商。这些文章我也会同步发布在 LinkedIn 上。',
     empty: '第一批文章即将发布。',
     linkedin: '在 LinkedIn 关注我',
+    readMinutes: (n: number) => `${n} 分钟阅读`,
+    otherLangTag: '英文文章',
+    backToList: '全部文章',
+    updated: '更新于',
+    postTitle: (title: string) => `${title}｜文能 Wenergize`,
+    ctaTitle: '正在做类似的事情？',
+    ctaText: '请告诉我您的产品或供应商情况，我会回复您。',
+    ctaButton: '联系我',
   },
 
   contact: {

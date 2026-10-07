@@ -12,9 +12,12 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  switchPath?: string; // where the language switcher points (defaults to path)
+  twin?: boolean; // false when this page has no version in the other language
+  ogType?: 'website' | 'article';
 }
 
-const { lang, path, title, description = '', noindex = false } = Astro.props;
+const { lang, path, title, description = '', noindex = false, switchPath = path, twin = true, ogType = 'website' } = Astro.props;
 const t = copyFor(lang);
 const origin = Astro.site ? Astro.site.origin : '';
 const url = (l: Lang) => `${origin}${localePath(l, path)}`;
@@ -34,10 +37,10 @@ const ogImage = `${origin}${site.logoFull}`;
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
-    {!noindex && <link rel="alternate" hreflang="en" href={url('en')} />}
-    {!noindex && <link rel="alternate" hreflang="zh-CN" href={url('zh')} />}
-    {!noindex && <link rel="alternate" hreflang="x-default" href={url('en')} />}
-    <meta property="og:type" content="website" />
+    {!noindex && twin && <link rel="alternate" hreflang="en" href={url('en')} />}
+    {!noindex && twin && <link rel="alternate" hreflang="zh-CN" href={url('zh')} />}
+    {!noindex && twin && <link rel="alternate" hreflang="x-default" href={url('en')} />}
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Wenergize 文能" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
@@ -47,7 +50,7 @@ const ogImage = `${origin}${site.logoFull}`;
   </head>
   <body>
     <a class="skip" href="#main">{t.skip}</a>
-    <Header lang={lang} path={path} />
+    <Header lang={lang} path={path} switchPath={switchPath} />
     <main id="main">
       <slot />
     </main>

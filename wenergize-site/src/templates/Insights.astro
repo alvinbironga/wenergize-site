@@ -1,12 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
-import { copyFor, pages, type Lang } from '../i18n/utils';
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
 import { site } from '../config/site';
+import { allPosts, listFor, formatDate, readingMinutes } from '../lib/posts';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = copyFor(lang);
 const i = t.insights;
+const list = listFor(await allPosts(), lang);
 ---
 
 <Base lang={lang} path={pages.insights} title={t.meta.insights.title} description={t.meta.insights.description}>
@@ -19,13 +21,28 @@ const i = t.insights;
 
   <section>
     <div class="container">
-      <!-- Stage 3 replaces this empty state with the list of published posts. -->
-      <div class="post-list">
+      {list.length > 0 ? (
+        <ul class="post-list">
+          {list.map((p) => (
+            <li>
+              <article class="post-card">
+                <p class="post-meta">
+                  <time datetime={p.data.date.toISOString().slice(0, 10)}>{formatDate(p.data.date, lang)}</time>
+                  <span aria-hidden="true"> · </span>{i.readMinutes(readingMinutes(p.body, p.lang))}
+                  {p.lang !== lang && <span class="post-tag" lang={p.lang}>{i.otherLangTag}</span>}
+                </p>
+                <h2><a href={localePath(p.lang, `${pages.insights}${p.slug}/`)} lang={p.lang === 'zh' ? 'zh-CN' : 'en'}>{p.data.title}</a></h2>
+                <p>{p.data.description}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
+      ) : (
         <div class="empty">
           <p>{i.empty}</p>
           {site.linkedin && <a class="btn btn-ghost" href={site.linkedin} rel="noopener">{i.linkedin}</a>}
         </div>
-      </div>
+      )}
     </div>
   </section>
 </Base>

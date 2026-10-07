@@ -208,6 +208,14 @@ export const en = {
       'Notes on the Kenyan and East African energy market, written for manufacturers, importers and retailers. I also post these on LinkedIn.',
     empty: 'The first articles are on their way.',
     linkedin: 'Follow on LinkedIn',
+    readMinutes: (n: number) => `${n} min read`,
+    otherLangTag: 'In English',
+    backToList: 'All insights',
+    updated: 'Updated',
+    postTitle: (title: string) => `${title} | Wenergize`,
+    ctaTitle: 'Working on something similar?',
+    ctaText: 'Tell me about your product or supplier and I will come back to you.',
+    ctaButton: 'Get in touch',
   },
 
   contact: {

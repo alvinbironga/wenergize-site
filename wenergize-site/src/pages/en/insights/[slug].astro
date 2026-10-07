@@ -1,0 +1,12 @@
+---
+import Post from '../../../templates/Post.astro';
+import { allPosts, hasTwin, postsIn } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  const all = await allPosts();
+  return postsIn(all, 'en').map((post) => ({ params: { slug: post.slug }, props: { post, twin: hasTwin(all, post) } }));
+}
+const { post, twin } = Astro.props;
+---
+
+<Post lang="en" post={post} twin={twin} />

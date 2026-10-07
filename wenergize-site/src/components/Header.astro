@@ -2,8 +2,8 @@
 import { copyFor, localePath, otherLang, pages, type Lang } from '../i18n/utils';
 import { site } from '../config/site';
 
-interface Props { lang: Lang; path: string }
-const { lang, path } = Astro.props;
+interface Props { lang: Lang; path: string; switchPath?: string }
+const { lang, path, switchPath = path } = Astro.props;
 const t = copyFor(lang);
 const other = otherLang(lang);
 
@@ -30,14 +30,14 @@ const isCurrent = (p: string) => path === p || (p !== '' && path.startsWith(p));
     </nav>
 
     <div class="header-right">
-      <a class="lang" href={localePath(other, path)} hreflang={other === 'zh' ? 'zh-CN' : 'en'} lang={other === 'zh' ? 'zh-CN' : 'en'} title={t.switchTitle}>{t.switchLabel}</a>
+      <a class="lang" href={localePath(other, switchPath)} hreflang={other === 'zh' ? 'zh-CN' : 'en'} lang={other === 'zh' ? 'zh-CN' : 'en'} title={t.switchTitle}>{t.switchLabel}</a>
       <details class="menu">
         <summary aria-label={t.menu}><span></span></summary>
         <div class="menu-panel">
           {links.map((l) => (
             <a href={localePath(lang, l.path)}>{l.label}</a>
           ))}
-          <a class="lang" href={localePath(other, path)} hreflang={other === 'zh' ? 'zh-CN' : 'en'} lang={other === 'zh' ? 'zh-CN' : 'en'}>{t.switchLabel}</a>
+          <a class="lang" href={localePath(other, switchPath)} hreflang={other === 'zh' ? 'zh-CN' : 'en'} lang={other === 'zh' ? 'zh-CN' : 'en'}>{t.switchLabel}</a>
         </div>
       </details>
     </div>

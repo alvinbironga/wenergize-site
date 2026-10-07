@@ -84,7 +84,8 @@ const f = c.fields;
               {f.interests.map((r) => <option>{r}</option>)}
             </select>
           </label>
-          <label>{f.message}<textarea name="message" required></textarea></label>
+          <label>{f.message}<textarea name="message" required aria-describedby="msg-hint"></textarea></label>
+          <p class="note" id="msg-hint" style="margin-top: -8px;">{f.messageHint}</p>
           <button class="btn btn-primary" type="submit">{f.send}</button>
           <p class="note">{c.formNote} <a href={localePath(lang, pages.privacy)}>{t.footer.privacy}</a></p>
         </form>

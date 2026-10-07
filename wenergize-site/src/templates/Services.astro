@@ -25,6 +25,10 @@ const s = t.services;
             <h3>{item.title}</h3>
             <p><strong>{item.short}</strong></p>
             <p class="muted">{item.long}</p>
+            <dl class="detail">
+              <div><dt>{s.fitLabel}</dt><dd>{item.fit}</dd></div>
+              <div><dt>{s.getLabel}</dt><dd>{item.get}</dd></div>
+            </dl>
           </article>
         ))}
       </div>

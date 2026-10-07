@@ -94,7 +94,7 @@ export const en = {
         {
           title: 'I work the Kenyan market',
           text:
-            'I run Ecogo, a solar retail shop in Kenya, and I have interpreted for Chinese factory engineers visiting Kenyan solar companies. Ecogo is also Wenergize’s first client.',
+            'I manage Ecogo, a solar retail shop in Kenya, so I see every day what retailers ask for. I have also interpreted for Chinese factory engineers visiting Kenyan solar companies. Ecogo is Wenergize’s first client.',
         },
       ],
     },
@@ -122,6 +122,8 @@ export const en = {
     items: [
       {
         id: 'market-entry',
+        fit: 'You make solar, battery or electrical products and are weighing up Kenya, or you tried and stalled.',
+        get: 'A short written assessment: demand, price range, main competitors, likely sales channels, and a recommended first step.',
         title: 'Market entry advice',
         short: 'A clear picture of demand, pricing, competitors and sales channels before you commit money to Kenya.',
         long:
@@ -129,6 +131,8 @@ export const en = {
       },
       {
         id: 'partner-matching',
+        fit: 'You want importers, distributors or retailers in Kenya but do not know whom to trust.',
+        get: 'A shortlist of suitable partners with background notes, introductions in both languages, and support through the first calls.',
         title: 'Partner and distributor matching',
         short: 'Introductions to importers, distributors and retailers that fit your product and the way you want to sell.',
         long:
@@ -136,6 +140,8 @@ export const en = {
       },
       {
         id: 'supplier-vetting',
+        fit: 'You are a Kenyan buyer about to place a first order with a Chinese factory.',
+        get: 'A plain report on the factory, the product and the paperwork, with the points I would raise before you pay.',
         title: 'Supplier vetting',
         short: 'For Kenyan buyers: checking the factory, the product and the paperwork before you pay a deposit.',
         long:
@@ -143,6 +149,8 @@ export const en = {
       },
       {
         id: 'compliance',
+        fit: 'You want to know what a product needs before it ships to Kenya.',
+        get: 'A checklist of the standards, certificates and import steps likely to apply, and who to contact to confirm each one.',
         title: 'Compliance guidance',
         short: 'Walking you through standards, certification and import requirements so shipments do not get stuck.',
         long:
@@ -150,12 +158,17 @@ export const en = {
       },
       {
         id: 'interpreting',
+        fit: 'You have a factory visit, trade show, negotiation or inspection where technical accuracy matters.',
+        get: 'Interpreting in English, Mandarin or Swahili, in person or remote, from someone who knows the equipment being discussed.',
         title: 'Technical interpreting',
         short: 'In-person and remote interpreting for factory visits, trade shows, negotiations and site inspections.',
         long:
           'English, Mandarin and Swahili, with the technical vocabulary for solar, batteries and electrical equipment, so engineers can talk to engineers.',
       },
     ],
+
+    fitLabel: 'A good fit if',
+    getLabel: 'What you get',
 
     waysTitle: 'Ways to work together',
     ways: [
@@ -172,16 +185,16 @@ export const en = {
     intro:
       'I’m Kenyan, I live and work in Tianjin, and I speak English, Swahili and Mandarin. Wenergize exists because I kept seeing the same gap: Chinese factories with good products and no way into Kenya, and Kenyan buyers who could not tell a good supplier from a bad one.',
     body: [
-      'I studied environmental engineering at Tianjin University, in Mandarin, and have since worked on both sides of the China–Kenya solar and battery trade. In China I was a regional sales manager at a battery manufacturer. In Kenya I run a solar retail shop.',
+      'I studied environmental engineering at Tianjin University, in Mandarin, and have since worked on both sides of the China–Kenya solar and battery trade. In China I was a regional sales manager at a battery manufacturer. In Kenya I manage a solar retail shop.',
       'That mix is what I offer. I can sit with a factory’s engineers and follow the technical detail, and I know what a Kenyan importer or retailer needs before they will say yes.',
     ],
     timelineTitle: 'Background',
     timeline: [
-      { when: '2026', title: 'Wenergize Limited', text: 'Founded and registered in Kenya. Ecogo is the first client.' },
+      { when: '2026', title: 'Wenergize Limited', text: 'Founded and registered in Kenya.' },
       { when: 'September 2026', title: 'Solar Panda', text: 'Technical translator.' },
       { when: 'April to July 2026', title: 'TZST', text: 'Regional sales manager at a battery manufacturer in Tianjin.' },
       { when: '2026', title: 'Tianjin University', text: 'Graduated in environmental engineering, taught in Mandarin.' },
-      { when: 'Ongoing', title: 'Ecogo', text: 'My own solar retail shop in Kenya, and Wenergize’s first client.' },
+      { when: 'Ongoing', title: 'Ecogo', text: 'I manage this solar retail shop in Kenya. It is also Wenergize’s first client.' },
     ],
     languagesTitle: 'Languages',
     languages: ['English', 'Kiswahili', '中文 (HSK 5)', 'German', 'Basic French'],
@@ -223,6 +236,7 @@ export const en = {
         'Not sure yet',
       ],
       message: 'What are you looking for?',
+      messageHint: 'It helps to mention the product, where you are in the process, and any timeline.',
       send: 'Send enquiry',
     },
     formNote: 'I use your details only to reply to you. See the privacy page.',

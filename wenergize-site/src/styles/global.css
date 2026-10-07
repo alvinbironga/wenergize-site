@@ -138,6 +138,13 @@ html[lang='zh-CN'] .hero h1 { max-width: 14em; }
 .audience .card:nth-child(2) { border-top-color: var(--amber); }
 .num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--green-soft); color: var(--green); font-weight: 800; margin-bottom: 14px; }
 
+/* Service detail */
+.detail { margin: 18px 0 0; display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 16px; }
+@media (min-width: 720px) { .detail { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.detail dt { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
+html[lang='zh-CN'] .detail dt { letter-spacing: 0.04em; text-transform: none; font-size: 0.95rem; }
+.detail dd { margin: 0; }
+
 /* Proof */
 .proof { display: grid; gap: 28px; }
 @media (min-width: 820px) { .proof { grid-template-columns: repeat(3, 1fr); gap: 40px; } }

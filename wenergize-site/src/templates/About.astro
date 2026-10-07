@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
+import { site } from '../config/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copyFor(lang);
+const a = t.about;
+---
+
+<Base lang={lang} path={pages.about} title={t.meta.about.title} description={t.meta.about.description}>
+  <section>
+    <div class="container about-grid">
+      <div>
+        <img class="portrait" src={site.photo} alt={a.photoAlt} width="340" height="374" />
+        <h3 style="margin-top: 22px;">{a.languagesTitle}</h3>
+        <ul class="tags">
+          {a.languages.map((l) => <li>{l}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h1>{a.h1}</h1>
+        <p class="lead">{a.intro}</p>
+        {a.body.map((p) => <p>{p}</p>)}
+
+        <h2 style="margin-top: 40px; font-size: 1.4rem;">{a.timelineTitle}</h2>
+        <ul class="timeline">
+          {a.timeline.map((e) => (
+            <li>
+              <span class="when">{e.when}</span>
+              <strong>{e.title}</strong>
+              <span class="muted">{e.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="btn-row">
+          <a class="btn btn-primary" href={localePath(lang, pages.contact)}>{a.cta}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

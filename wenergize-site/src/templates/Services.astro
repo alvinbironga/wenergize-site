@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copyFor(lang);
+const s = t.services;
+---
+
+<Base lang={lang} path={pages.services} title={t.meta.services.title} description={t.meta.services.description}>
+  <div class="page-head">
+    <div class="container">
+      <h1>{s.h1}</h1>
+      <p class="lead">{s.intro}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="grid">
+        {s.items.map((item, i) => (
+          <article class="card" id={item.id}>
+            <span class="num">{i + 1}</span>
+            <h3>{item.title}</h3>
+            <p><strong>{item.short}</strong></p>
+            <p class="muted">{item.long}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="container">
+      <div class="section-head"><h2>{s.waysTitle}</h2></div>
+      <div class="grid grid-3">
+        {s.ways.map((w) => (
+          <article class="card">
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </article>
+        ))}
+      </div>
+      <p class="muted" style="margin-top: 24px;">{s.waysNote}</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={localePath(lang, pages.contact)}>{s.cta}</a>
+      </div>
+    </div>
+  </section>
+</Base>

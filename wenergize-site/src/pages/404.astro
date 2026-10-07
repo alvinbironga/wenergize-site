@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { en } from '../i18n/en';
+---
+
+<Base lang="en" path="" title={en.meta.notFound.title} noindex>
+  <section>
+    <div class="container">
+      <h1>{en.notFound.h1}</h1>
+      <p class="lead">{en.notFound.text}</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/en/">{en.notFound.button}</a>
+        <a class="btn btn-ghost" href="/zh/">返回首页</a>
+      </div>
+    </div>
+  </section>
+</Base>

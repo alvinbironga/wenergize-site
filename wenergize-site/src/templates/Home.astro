@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
+import { site } from '../config/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copyFor(lang);
+const h = t.home;
+---
+
+<Base lang={lang} path={pages.home} title={t.meta.home.title} description={t.meta.home.description}>
+  <section class="hero">
+    <img class="hero-mark" src={site.logoMark} alt="" width="440" height="400" />
+    <div class="container">
+      <p class="eyebrow">{h.eyebrow}</p>
+      <h1>{h.h1}</h1>
+      <p class="lead">{h.sub}</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={localePath(lang, pages.contact)}>{h.ctaPrimary}</a>
+        <a class="btn btn-ghost" href={localePath(lang, pages.services)}>{h.ctaSecondary}</a>
+      </div>
+      <p class="hero-trust">
+        {h.trust.map((x) => <span>{x}</span>)}
+      </p>
+    </div>
+  </section>
+
+  <section class="section-white audience">
+    <div class="container">
+      <div class="section-head"><h2>{h.audience.title}</h2></div>
+      <div class="grid grid-2">
+        {h.audience.cards.map((c) => (
+          <article class="card">
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+            <a class="card-link" href={localePath(lang, pages.services)}>{c.link} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head"><h2>{h.servicesTitle}</h2></div>
+      <div class="grid grid-3">
+        {t.services.items.map((s) => (
+          <article class="card">
+            <h3>{s.title}</h3>
+            <p>{s.short}</p>
+          </article>
+        ))}
+        <article class="card" style="background: var(--green-soft); border-color: transparent; display: grid; align-content: center;">
+          <a class="card-link" style="margin: 0; font-size: 1.1rem;" href={localePath(lang, pages.services)}>{h.servicesLink} →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white">
+    <div class="container">
+      <div class="section-head"><h2>{h.proof.title}</h2></div>
+      <div class="proof">
+        {h.proof.items.map((p) => (
+          <div>
+            <h3>{p.title}</h3>
+            <p class="muted">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head"><h2>{h.how.title}</h2></div>
+      <div class="grid grid-3">
+        {h.how.steps.map((s, i) => (
+          <article class="card">
+            <span class="num">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      <h2>{h.cta.title}</h2>
+      <p>{h.cta.text}</p>
+      <div class="btn-row">
+        <a class="btn btn-amber" href={localePath(lang, pages.contact)}>{h.cta.button}</a>
+      </div>
+    </div>
+  </section>
+</Base>

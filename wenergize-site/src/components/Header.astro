@@ -1,0 +1,45 @@
+---
+import { copyFor, localePath, otherLang, pages, type Lang } from '../i18n/utils';
+import { site } from '../config/site';
+
+interface Props { lang: Lang; path: string }
+const { lang, path } = Astro.props;
+const t = copyFor(lang);
+const other = otherLang(lang);
+
+const links = [
+  { key: 'services', label: t.nav.services, path: pages.services },
+  { key: 'about', label: t.nav.about, path: pages.about },
+  { key: 'insights', label: t.nav.insights, path: pages.insights },
+  { key: 'contact', label: t.nav.contact, path: pages.contact },
+];
+const isCurrent = (p: string) => path === p || (p !== '' && path.startsWith(p));
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={localePath(lang, '')} aria-label={`${site.brand} ${t.nav.home}`}>
+      <img src={site.logoMark} alt="" width="40" height="36" />
+      <span>{site.brand}{lang === 'zh' && <span class="zh">{site.brandZh}</span>}</span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      {links.map((l) => (
+        <a href={localePath(lang, l.path)} aria-current={isCurrent(l.path) ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="header-right">
+      <a class="lang" href={localePath(other, path)} hreflang={other === 'zh' ? 'zh-CN' : 'en'} lang={other === 'zh' ? 'zh-CN' : 'en'} title={t.switchTitle}>{t.switchLabel}</a>
+      <details class="menu">
+        <summary aria-label={t.menu}><span></span></summary>
+        <div class="menu-panel">
+          {links.map((l) => (
+            <a href={localePath(lang, l.path)}>{l.label}</a>
+          ))}
+          <a class="lang" href={localePath(other, path)} hreflang={other === 'zh' ? 'zh-CN' : 'en'} lang={other === 'zh' ? 'zh-CN' : 'en'}>{t.switchLabel}</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
+import { site, whatsappLink } from '../config/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copyFor(lang);
+const c = t.contact;
+const f = c.fields;
+---
+
+<Base lang={lang} path={pages.contact} title={t.meta.contact.title} description={t.meta.contact.description}>
+  <div class="page-head">
+    <div class="container">
+      <h1>{c.h1}</h1>
+      <p class="lead">{c.intro}</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container contact-grid">
+      <div>
+        <h2 style="font-size: 1.3rem;">{c.channelsTitle}</h2>
+
+        <div class="channel">
+          <div>
+            <span class="label">{c.wechat}</span>
+            <span>{c.wechatHint}</span>
+            <img class="qr" src={site.wechatQr} alt={`${c.wechat} QR`} width="240" height="322" loading="lazy" />
+          </div>
+        </div>
+        <div class="channel">
+          <div>
+            <span class="label">{c.whatsapp}</span>
+            <a href={whatsappLink(c.whatsappText)} rel="noopener">{site.whatsappDisplay}</a>
+          </div>
+        </div>
+        <div class="channel">
+          <div>
+            <span class="label">{c.email}</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+        </div>
+        <div class="channel">
+          <div>
+            <span class="label">{c.phone}</span>
+            <a href={`tel:${site.phoneChinaHref}`}>{site.phoneChina}</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 style="font-size: 1.3rem;">{c.formTitle}</h2>
+
+        <div id="thanks" hidden class="card">
+          <h3>{c.thanksTitle}</h3>
+          <p>{c.thanksText}</p>
+        </div>
+
+        <!-- Netlify Forms: submissions appear in the Netlify dashboard and can be emailed to you. -->
+        <form
+          id="enquiry"
+          name="enquiry"
+          method="POST"
+          action={`${localePath(lang, pages.contact)}?sent=1`}
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="enquiry" />
+          <input type="hidden" name="language" value={lang} />
+          <p class="hp"><label>Do not fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+          <label>{f.name}<input name="name" required autocomplete="name" /></label>
+          <label>{f.company}<input name="company" autocomplete="organization" /></label>
+          <label>{f.email}<input name="email" type="email" required autocomplete="email" /></label>
+          <label>{f.role}
+            <select name="role">
+              {f.roles.map((r) => <option>{r}</option>)}
+            </select>
+          </label>
+          <label>{f.interest}
+            <select name="interest">
+              {f.interests.map((r) => <option>{r}</option>)}
+            </select>
+          </label>
+          <label>{f.message}<textarea name="message" required></textarea></label>
+          <button class="btn btn-primary" type="submit">{f.send}</button>
+          <p class="note">{c.formNote} <a href={localePath(lang, pages.privacy)}>{t.footer.privacy}</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    if (location.search.indexOf('sent=1') > -1) {
+      var t = document.getElementById('thanks');
+      var f = document.getElementById('enquiry');
+      if (t) t.hidden = false;
+      if (f) f.hidden = true;
+    }
+  </script>
+</Base>

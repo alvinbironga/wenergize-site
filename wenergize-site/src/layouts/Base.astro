@@ -1,0 +1,63 @@
+---
+import '@fontsource-variable/manrope/wght.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { copyFor, localePath, otherLang, type Lang } from '../i18n/utils';
+import { site } from '../config/site';
+
+interface Props {
+  lang: Lang;
+  path: string; // page path without language prefix
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { lang, path, title, description = '', noindex = false } = Astro.props;
+const t = copyFor(lang);
+const origin = Astro.site ? Astro.site.origin : '';
+const url = (l: Lang) => `${origin}${localePath(l, path)}`;
+const canonical = url(lang);
+const other = otherLang(lang);
+const ogImage = `${origin}${site.logoFull}`;
+---
+
+<!doctype html>
+<html lang={t.htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="theme-color" content="#f3f6ee" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="alternate" hreflang="en" href={url('en')} />}
+    {!noindex && <link rel="alternate" hreflang="zh-CN" href={url('zh')} />}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={url('en')} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wenergize 文能" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+    <Header lang={lang} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script is:inline>
+      // Remember the visitor's language choice for the root page redirect.
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a.lang');
+        if (a) { try { localStorage.setItem('wen-lang', a.getAttribute('hreflang') === 'zh-CN' ? 'zh' : 'en'); } catch (x) {} }
+      });
+    </script>
+  </body>
+</html>

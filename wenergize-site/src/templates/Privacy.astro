@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { copyFor, pages, type Lang } from '../i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copyFor(lang);
+const p = t.privacy;
+---
+
+<Base lang={lang} path={pages.privacy} title={t.meta.privacy.title} description={t.meta.privacy.description}>
+  <section>
+    <div class="container prose">
+      <h1>{p.h1}</h1>
+      <p class="muted">{p.updated}</p>
+      {p.sections.map((s) => (
+        <>
+          <h2>{s.title}</h2>
+          <p>{s.text}</p>
+        </>
+      ))}
+    </div>
+  </section>
+</Base>

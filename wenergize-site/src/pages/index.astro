@@ -1,0 +1,29 @@
+---
+// Root page: sends visitors to the English or Chinese site.
+// Order of preference: the language they chose before, then their browser language, then English.
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wenergize 文能</title>
+    <meta name="robots" content="noindex" />
+    <noscript><meta http-equiv="refresh" content="0; url=/en/" /></noscript>
+    <script is:inline>
+      (function () {
+        var l = null;
+        try { l = localStorage.getItem('wen-lang'); } catch (e) {}
+        if (l !== 'en' && l !== 'zh') {
+          l = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+        }
+        location.replace('/' + l + '/');
+      })();
+    </script>
+    <style>body{font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;background:#f3f6ee;color:#0b1209}a{color:#1f6e04;font-weight:700;margin:0 10px}</style>
+  </head>
+  <body>
+    <p><a href="/en/">English</a> <a href="/zh/">中文</a></p>
+  </body>
+</html>

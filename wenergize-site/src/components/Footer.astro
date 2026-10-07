@@ -1,0 +1,49 @@
+---
+import { copyFor, localePath, pages, type Lang } from '../i18n/utils';
+import { site, whatsappLink } from '../config/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copyFor(lang);
+const nav = [
+  { label: t.nav.services, path: pages.services },
+  { label: t.nav.about, path: pages.about },
+  { label: t.nav.insights, path: pages.insights },
+  { label: t.nav.contact, path: pages.contact },
+  { label: t.footer.privacy, path: pages.privacy },
+];
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src={site.logoMark} alt="" width="40" height="36" loading="lazy" />
+          <span>{site.brand}{lang === 'zh' && ` ${site.brandZh}`}</span>
+        </div>
+        <p>{t.footer.tagline}</p>
+      </div>
+      <div>
+        <h3>{t.footer.explore}</h3>
+        <ul>
+          {nav.map((n) => <li><a href={localePath(lang, n.path)}>{n.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h3>{t.footer.contactTitle}</h3>
+        <ul>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><a href={whatsappLink()} rel="noopener">WhatsApp {site.whatsappDisplay}</a></li>
+          <li><a href={`tel:${site.phoneChinaHref}`}>{site.phoneChina}</a></li>
+          <li><a href={localePath(lang, pages.contact)}>{t.contact.wechat}</a></li>
+          {site.linkedin && <li><a href={site.linkedin} rel="noopener">LinkedIn</a></li>}
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>{t.footer.legal(site.legalName, site.registrationNo)}</span>
+      <span>© {site.year} {site.legalName}. {t.footer.rights}</span>
+    </div>
+  </div>
+</footer>
